@@ -1,0 +1,6 @@
+{
+  "name": "Smart Study Planner",
+  "description": "Algorithmic study schedule generator based on topic difficulty, volume, understanding, and priority weighting with day availability optimization.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
