@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus, Globe, Printer, Activity } from 'lucide-react';
+import { Plus, Globe, Printer, Activity, Share2 } from 'lucide-react';
 import { Language, StepPage } from '../types/planner';
 import { MEDICAL_PRESETS } from '../data/presets';
 import { getT } from '../data/translations';
@@ -12,6 +12,7 @@ interface HeaderProps {
   onOpenAddTopic: () => void;
   onSelectPreset: (presetId: string) => void;
   onPrint: () => void;
+  onOpenShare: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -22,6 +23,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenAddTopic,
   onSelectPreset,
   onPrint,
+  onOpenShare,
 }) => {
   const t = getT(lang);
 
@@ -108,6 +110,16 @@ export const Header: React.FC<HeaderProps> = ({
                 <Printer className="w-4 h-4" />
               </button>
             )}
+
+            {/* Share Website button */}
+            <button
+              onClick={onOpenShare}
+              title={lang === 'th' ? 'แชร์เว็บให้เพื่อนเล่น' : 'Share Website'}
+              className="px-2.5 py-1 text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-md transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+            >
+              <Share2 className="w-3.5 h-3.5" />
+              <span>{lang === 'th' ? 'แชร์เว็บ' : 'Share'}</span>
+            </button>
 
             {/* Language toggle */}
             <button

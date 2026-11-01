@@ -20,6 +20,7 @@ import { AddTopicModal } from './components/AddTopicModal';
 import { FocusTimerModal } from './components/FocusTimerModal';
 import { DaySuccessModal } from './components/DaySuccessModal';
 import { CAlgorithmView } from './components/CAlgorithmView';
+import { ShareModal } from './components/ShareModal';
 import { X } from 'lucide-react';
 
 export default function App() {
@@ -94,6 +95,7 @@ export default function App() {
   });
 
   const [isCCodeModalOpen, setIsCCodeModalOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   // Sync state changes to localStorage
   useEffect(() => {
@@ -342,6 +344,7 @@ export default function App() {
         }}
         onSelectPreset={handleSelectPreset}
         onPrint={() => window.print()}
+        onOpenShare={() => setIsShareModalOpen(true)}
       />
 
       {/* Main Multi-Step Content Viewport */}
@@ -483,6 +486,13 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* Share Website Modal with QR Code and 1-Click Copy */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        lang={lang}
+      />
     </div>
   );
 }
