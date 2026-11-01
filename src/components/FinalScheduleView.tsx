@@ -100,18 +100,17 @@ export const FinalScheduleView: React.FC<FinalScheduleViewProps> = ({
     .filter((day) => day.sessions.length > 0 || (searchQuery === '' && day.availableMinutes > 0));
 
   return (
-    <div className="space-y-6 py-4">
+    <div className="space-y-6 py-6">
       {/* Top Header & Context Actions */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-indigo-700 tracking-wider uppercase font-mono mb-1">
-            <Activity className="w-4 h-4 text-indigo-600" />
-            <span>Step 4 / 4 · {target.examName || 'Final Schedule'}</span>
-          </div>
+        <div className="space-y-1">
+          <span className="text-xs font-mono text-slate-400 uppercase tracking-wider block">
+            04 · {target.examName || 'ตารางติว'}
+          </span>
           <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
             {t.schedulePageTitle}
           </h2>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500">
             {t.schedulePageSubtitle}
           </p>
         </div>
@@ -119,7 +118,7 @@ export const FinalScheduleView: React.FC<FinalScheduleViewProps> = ({
         <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={onBackToTopics}
-            className="px-3 py-1.5 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+            className="px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200/90 rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>{t.backToTopicsBtn}</span>
@@ -127,15 +126,15 @@ export const FinalScheduleView: React.FC<FinalScheduleViewProps> = ({
 
           <button
             onClick={onViewCCode}
-            className="px-3 py-1.5 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer"
+            className="px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer"
           >
-            <Terminal className="w-3.5 h-3.5 text-slate-500" />
+            <Terminal className="w-3.5 h-3.5 text-slate-400" />
             <span>{t.cCodeTab}</span>
           </button>
 
           <button
             onClick={onPrint}
-            className="px-3.5 py-1.5 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+            className="px-3.5 py-1.5 text-xs font-medium text-white bg-slate-900 hover:bg-slate-800 rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
           >
             <Printer className="w-3.5 h-3.5" />
             <span>{t.printBtn}</span>

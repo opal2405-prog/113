@@ -133,13 +133,13 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
           {/* Category & Color */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label className="font-semibold text-slate-700 block">Category (Optional)</label>
+              <label className="font-semibold text-slate-700 block">หมวดหมู่ (ถ้ามี)</label>
               <input
                 type="text"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                placeholder="e.g. Finals, Math"
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-md text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs"
+                placeholder="เช่น Anatomy, Neuro..."
+                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-md text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-400 text-xs"
               />
             </div>
             <div className="space-y-1">

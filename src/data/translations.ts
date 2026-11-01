@@ -13,9 +13,9 @@ export const TRANSLATIONS = {
     stepSchedule: '4. ตารางติวและเช็คลิสต์รายวัน',
 
     // Welcome Page
-    welcomeBadge: 'Faculty of Medicine · Medical Sciences',
-    welcomeHeroTitle: 'จัดตารางติวหนังสือให้ทันวันสอบ ด้วยอัลกอริทึมคำนวณเวลาตามความสำคัญจริง',
-    welcomeHeroSubtitle: 'ออกแบบเฉพาะสำหรับนิสิตคณะแพทยศาสตร์ สาขาวิทยาศาสตร์การแพทย์ เพื่อจัดระเบียบวิชาเนื้อหาหนา ทั้ง Gross Anatomy, Biochemistry, Pathology, Pharmacology ให้ทันก่อนวันสอบจริง',
+    welcomeBadge: 'Medical Sciences · วิทยาศาสตร์การแพทย์',
+    welcomeHeroTitle: 'จัดตารางติวหนังสือทันวันสอบ สำหรับเด็ก วิทยาศาสตร์การแพทย์',
+    welcomeHeroSubtitle: 'ออกแบบสำหรับนิสิตวิทยาศาสตร์การแพทย์ เพื่อคำนวณและจัดสรรเวลาอ่านหนังสือตามความยาก ปริมาณเนื้อหา และความสำคัญ ให้ทันก่อนวันสอบจริง',
     welcomeScopeNotice: 'ระบบนี้เน้นจัดสรรเวลาและตารางอ่านหนังสือเท่านั้น ไม่ใช่เว็บไซต์สรุปเนื้อหาติว เพื่อให้คุณบริหารเวลาที่มีอยู่อย่างแม่นยำที่สุด',
     startPlanningBtn: 'เริ่มต้นวางแผนอ่านหนังสือ',
     choosePresetBtn: 'หรือเลือกจากตัวอย่างบล็อกวิชาแพทย์',
@@ -24,7 +24,7 @@ export const TRANSLATIONS = {
     targetPageTitle: 'กำหนดเป้าหมาย วันสอบ และเวลาว่าง',
     targetPageSubtitle: 'ระบุวิชาที่ต้องสอบ วันที่สอบจริง และเวลาว่างเฉลี่ยในแต่ละวัน',
     examNameLabel: 'ชื่อการสอบ / บล็อกวิชา',
-    examNamePlaceholder: 'เช่น สอบ ศรว. ขั้นที่ 1 (NL1), สอบบล็อกระบบประสาท Neuro block',
+    examNamePlaceholder: 'เช่น สอบ ศรว. ขั้นที่ 1 (NL1)...',
     examDateLabel: 'วันสอบจริง (Exam Date)',
     startDateLabel: 'วันที่เริ่มต้นอ่านหนังสือ',
     totalDaysLabel: 'จำนวนวันที่มีให้อ่าน (วัน)',
@@ -39,7 +39,7 @@ export const TRANSLATIONS = {
     addTopic: 'เพิ่มหัวข้อใหม่',
     editTopic: 'แก้ไขหัวข้อ',
     topicName: 'ชื่อหัวข้อ / วิชา',
-    topicNamePlaceholder: 'เช่น Gross Anatomy, Neurophysiology, Medical Biochemistry',
+    topicNamePlaceholder: 'เช่น Gross Anatomy...',
     navTopics: 'หัวข้อและความสำคัญ',
     notEnoughTimeAlertTitle: 'คำเตือน: เวลาอ่านที่มี ไม่พอสำหรับเนื้อหาทั้งหมด!',
     notEnoughTimeAlertDesc: 'จำนวนหัวข้อหรือเนื้อหาวิชามากเกินกว่าเวลาว่างที่มีจริง คุณมีเวลาเพียง {available} ชม. แต่ต้องใช้ {required} ชม. (ขาดอีก {deficit} ชม.)',
@@ -48,7 +48,7 @@ export const TRANSLATIONS = {
     generateScheduleBtn: 'สร้างตารางติวและเช็คลิสต์',
     backToTargetBtn: 'ย้อนกลับ',
     topicSummaryLabel: 'สรุปหัวข้อสำคัญ / สรุปย่อ (ถ้ามี)',
-    topicSummaryPlaceholder: 'เช่น เน้น Cranial nerves, Histology lesions, Drug interactions...',
+    topicSummaryPlaceholder: 'เช่น สรุปประเด็นสำคัญ หรือขอบเขตเนื้อหา...',
 
     // Schedule Page
     schedulePageTitle: 'ตารางอ่านหนังสือและเช็คลิสต์รายวัน',

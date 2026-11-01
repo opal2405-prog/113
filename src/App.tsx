@@ -27,15 +27,20 @@ export default function App() {
   const [lang, setLang] = useState<Language>('th');
   const [currentStep, setCurrentStep] = useState<StepPage>('welcome');
 
-  // Default Medical Preset: NL1 Comprehensive Exam
-  const defaultPreset = MEDICAL_PRESETS[0];
-
+  // Default fresh state: blank for user to enter themselves
   const [target, setTarget] = useState<ExamTarget>(() => {
     try {
       const saved = localStorage.getItem('med_target');
       if (saved) return JSON.parse(saved);
     } catch {}
-    return defaultPreset.target;
+    return {
+      examName: '',
+      studentDepartment: 'วิทยาศาสตร์การแพทย์',
+      examDate: '',
+      startDate: new Date().toISOString().split('T')[0],
+      totalDays: 7,
+      defaultDailyHours: 3.0,
+    };
   });
 
   const [topics, setTopics] = useState<Topic[]>(() => {
@@ -43,7 +48,7 @@ export default function App() {
       const saved = localStorage.getItem('med_topics');
       if (saved) return JSON.parse(saved);
     } catch {}
-    return defaultPreset.topics;
+    return [];
   });
 
   const [days, setDays] = useState<StudyDay[]>(() => {
@@ -51,7 +56,11 @@ export default function App() {
       const saved = localStorage.getItem('med_days');
       if (saved) return JSON.parse(saved);
     } catch {}
-    return defaultPreset.days;
+    return Array.from({ length: 7 }, (_, i) => ({
+      dayNumber: i + 1,
+      availableMinutes: 180,
+      usedMinutes: 0,
+    }));
   });
 
   const [config, setConfig] = useState<AlgorithmConfig>(() => {

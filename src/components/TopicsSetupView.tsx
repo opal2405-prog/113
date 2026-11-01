@@ -51,196 +51,182 @@ export const TopicsSetupView: React.FC<TopicsSetupViewProps> = ({
   const sortedTopics = [...topics].sort((a, b) => b.priority - a.priority);
 
   return (
-    <div className="space-y-6 py-4">
-      {/* Step Header */}
+    <div className="space-y-6 py-6">
+      {/* Minimal Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-indigo-700 tracking-wider uppercase font-mono mb-1">
-            <BookOpen className="w-4 h-4 text-indigo-600" />
-            <span>Step 3 / 4</span>
-          </div>
+        <div className="space-y-1">
+          <span className="text-xs font-mono text-slate-400 uppercase tracking-wider block">
+            03 · รายวิชาและเวลา
+          </span>
           <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
             {t.topicsPageTitle}
           </h2>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500">
             {t.topicsPageSubtitle}
           </p>
         </div>
 
         <button
           onClick={onOpenAddTopic}
-          className="px-4 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors flex items-center gap-1.5 self-start sm:self-auto cursor-pointer shadow-xs"
+          className="px-4 py-2 text-xs font-medium text-white bg-slate-900 hover:bg-slate-800 rounded-lg transition-colors flex items-center gap-1.5 self-start sm:self-auto cursor-pointer shadow-xs"
         >
           <Plus className="w-4 h-4" />
           <span>{t.addTopicBtn}</span>
         </button>
       </div>
 
-      {/* CRITICAL REAL-TIME FEASIBILITY WARNING BANNER */}
-      {!isFeasible ? (
-        <div className="bg-red-50 border-2 border-red-300 rounded-xl p-5 text-red-950 space-y-3 shadow-xs">
-          <div className="flex items-start gap-3.5">
-            <div className="p-2 bg-red-100 rounded-lg text-red-700 shrink-0 mt-0.5">
-              <AlertTriangle className="w-6 h-6 text-red-600" />
-            </div>
-            <div className="space-y-1.5 flex-1">
-              <h3 className="text-sm font-bold text-red-900 flex items-center gap-2">
-                <span>{t.notEnoughTimeAlertTitle}</span>
-                <span className="text-xs bg-red-200 text-red-800 px-2 py-0.5 rounded font-mono font-bold">
-                  Status: NOT ENOUGH TIME
+      {/* FEASIBILITY WARNING BANNER — Minimal, clean, high-contrast */}
+      {topics.length > 0 && !isFeasible && (
+        <div className="bg-white border border-amber-300 rounded-xl p-5 text-slate-900 space-y-3">
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+            <div className="space-y-1.5 flex-1 text-xs">
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-slate-900">
+                  {t.notEnoughTimeAlertTitle}
                 </span>
-              </h3>
-              <p className="text-xs text-red-800 leading-relaxed">
-                {t.notEnoughTimeAlertDesc
-                  .replace('{available}', availableHours.toFixed(1))
-                  .replace('{required}', requiredHours.toFixed(1))
-                  .replace('{deficit}', deficit.toFixed(1))}
-              </p>
-
-              <div className="flex flex-wrap items-center gap-3 pt-2 text-xs">
-                <button
-                  onClick={onAutoBalance}
-                  className="px-3.5 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-md font-medium transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
-                >
-                  <Wand2 className="w-3.5 h-3.5" />
-                  <span>ปรับเวลาในแต่ละวันเพิ่มอัตโนมัติ (Auto-Balance +{deficit.toFixed(1)}h)</span>
-                </button>
-                <span className="text-red-700 text-[11px]">
-                  หรือปรับลด Volume/Difficulty ของหัวขอด้านล่าง
+                <span className="text-[11px] font-mono text-amber-700 font-semibold">
+                  (เวลาขาดอีก {deficit.toFixed(1)} ชม.)
                 </span>
               </div>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="bg-emerald-50 border border-emerald-300 rounded-xl p-4 text-emerald-950 space-y-1 shadow-xs">
-          <div className="flex items-center gap-3">
-            <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
-            <div className="flex-1">
-              <h3 className="text-xs font-bold text-emerald-900 flex items-center gap-2">
-                <span>{t.enoughTimeAlertTitle}</span>
-                <span className="text-[11px] bg-emerald-200 text-emerald-800 px-1.5 py-0.2 rounded font-mono font-bold">
-                  Status: ENOUGH TIME
-                </span>
-              </h3>
-              <p className="text-[11px] text-emerald-800">
-                {t.enoughTimeAlertDesc
-                  .replace('{available}', availableHours.toFixed(1))
-                  .replace('{required}', requiredHours.toFixed(1))
-                  .replace('{surplus}', deltaHours.toFixed(1))}
+              <p className="text-slate-600 leading-relaxed">
+                คุณมีเวลาอ่าน {availableHours.toFixed(1)} ชม. แต่ต้องใช้ {requiredHours.toFixed(1)} ชม. เพื่อให้อ่านทันก่อนวันสอบ คุณสามารถปรับเวลาอัตโนมัติ หรือปรับลดเนื้อหาของแต่ละวิชา
               </p>
+
+              <div className="pt-2 flex flex-wrap items-center gap-3">
+                <button
+                  onClick={onAutoBalance}
+                  className="px-3.5 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 rounded-lg font-medium transition-colors flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Wand2 className="w-3.5 h-3.5 text-amber-700" />
+                  <span>ปรับเวลาในแต่ละวันเพิ่มอัตโนมัติ (+{deficit.toFixed(1)}h)</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Scope Disclaimer Reminder */}
-      <div className="bg-slate-100 rounded-lg p-3 text-[11px] text-slate-600 flex items-center gap-2 border border-slate-200">
-        <Info className="w-4 h-4 text-slate-500 shrink-0" />
-        <span>
-          <strong>ข้อควรจำ:</strong> ระบบนี้ทำหน้าที่จัดสรรเวลาและตารางติวตามลำดับความสำคัญเท่านั้น (ไม่ใช่เว็บสรุปเนื้อหาติว)
-        </span>
-      </div>
+      {topics.length > 0 && isFeasible && (
+        <div className="bg-white border border-slate-200/90 rounded-xl p-4 text-xs flex items-center justify-between gap-3 text-slate-600">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+            <span>
+              เวลาเพียงพอ: มีเวลาอ่าน {availableHours.toFixed(1)} ชม. ครอบคลุมเนื้อหาทั้งหมด {requiredHours.toFixed(1)} ชม. (เหลือสำรอง {deltaHours.toFixed(1)} ชม.)
+            </span>
+          </div>
+          <span className="font-mono text-emerald-700 text-[11px] font-medium">
+            ENOUGH TIME
+          </span>
+        </div>
+      )}
 
       {/* Topics Table List */}
-      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+      <div className="bg-white border border-slate-200/90 rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold uppercase tracking-wider">
-                <th className="py-3 px-4 w-12 text-center font-mono">#</th>
-                <th className="py-3 px-4">วิชา / หัวข้อ & สรุปย่อ</th>
-                <th className="py-3 px-3 text-center" title="Difficulty rating (1-4)">
+              <tr className="bg-slate-50/70 border-b border-slate-200 text-slate-500 font-medium">
+                <th className="py-3 px-4 w-12 text-center font-mono font-normal">#</th>
+                <th className="py-3 px-4 font-normal">วิชา / หัวข้อ</th>
+                <th className="py-3 px-3 text-center font-normal" title="Difficulty rating (1-4)">
                   {t.difficultyShort}
                 </th>
-                <th className="py-3 px-3 text-center" title="Volume rating (1-4)">
+                <th className="py-3 px-3 text-center font-normal" title="Volume rating (1-4)">
                   {t.volumeShort}
                 </th>
-                <th className="py-3 px-3 text-center" title="Understanding rating (1-4)">
+                <th className="py-3 px-3 text-center font-normal" title="Understanding rating (1-4)">
                   {t.understandingShort}
                 </th>
-                <th className="py-3 px-3 text-center" title="Importance rating (1-5)">
+                <th className="py-3 px-3 text-center font-normal" title="Importance rating (1-5)">
                   {t.importanceShort}
                 </th>
-                <th className="py-3 px-4 text-right">{t.estimatedTime}</th>
-                <th className="py-3 px-4 text-right">{t.priorityScore}</th>
-                <th className="py-3 px-4 text-right w-24">จัดการ</th>
+                <th className="py-3 px-4 text-right font-normal">{t.estimatedTime}</th>
+                <th className="py-3 px-4 text-right font-normal">{t.priorityScore}</th>
+                <th className="py-3 px-4 text-right w-24 font-normal">จัดการ</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {sortedTopics.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="py-12 text-center text-slate-400">
-                    ยังไม่มีรายวิชา คลิก &quot;เพิ่มหัวข้อใหม่&quot; หรือย้อนกลับไปเลือกเทมเพลตแพทย์
+                  <td colSpan={9} className="py-16 text-center text-slate-400 space-y-2">
+                    <p className="text-xs">ยังไม่มีวิชาในตารางติวของคุณ</p>
+                    <button
+                      onClick={onOpenAddTopic}
+                      className="px-3.5 py-1.5 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer inline-flex items-center gap-1.5"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      <span>{t.addTopicBtn}</span>
+                    </button>
                   </td>
                 </tr>
               ) : (
                 sortedTopics.map((topic, index) => (
-                  <tr key={topic.id} className="hover:bg-slate-50/70 transition-colors group">
-                    <td className="py-3.5 px-4 text-center font-mono text-slate-400">
+                  <tr key={topic.id} className="hover:bg-slate-50/50 transition-colors group">
+                    <td className="py-3 px-4 text-center font-mono text-slate-400 text-[11px]">
                       {index + 1}
                     </td>
-                    <td className="py-3.5 px-4">
+                    <td className="py-3 px-4">
                       <div className="space-y-0.5">
                         <div className="flex items-center gap-2">
                           <span
-                            className="w-2.5 h-2.5 rounded-full shrink-0"
-                            style={{ backgroundColor: topic.color || '#6366f1' }}
+                            className="w-2 h-2 rounded-full shrink-0"
+                            style={{ backgroundColor: topic.color || '#0f172a' }}
                           />
-                          <span className="font-semibold text-slate-900 text-sm">
+                          <span className="font-medium text-slate-900 text-xs">
                             {topic.name}
                           </span>
                           {topic.category && (
-                            <span className="text-slate-500 font-mono text-[11px]">
+                            <span className="text-slate-400 font-mono text-[11px]">
                               ({topic.category})
                             </span>
                           )}
                         </div>
                         {topic.summaryNotes && (
-                          <p className="text-[11px] text-slate-500 pl-4.5 italic truncate max-w-md">
+                          <p className="text-[11px] text-slate-400 pl-4 italic truncate max-w-md">
                             {topic.summaryNotes}
                           </p>
                         )}
                       </div>
                     </td>
-                    <td className="py-3.5 px-3 text-center font-mono tabular-nums text-slate-700">
+                    <td className="py-3 px-3 text-center font-mono tabular-nums text-slate-600">
                       {topic.difficulty}
                     </td>
-                    <td className="py-3.5 px-3 text-center font-mono tabular-nums text-slate-700">
+                    <td className="py-3 px-3 text-center font-mono tabular-nums text-slate-600">
                       {topic.volume}
                     </td>
-                    <td className="py-3.5 px-3 text-center font-mono tabular-nums text-slate-700">
+                    <td className="py-3 px-3 text-center font-mono tabular-nums text-slate-600">
                       {topic.understanding}
                     </td>
-                    <td className="py-3.5 px-3 text-center font-mono tabular-nums font-semibold text-slate-900">
+                    <td className="py-3 px-3 text-center font-mono tabular-nums font-medium text-slate-800">
                       {topic.importance}/5
                     </td>
-                    <td className="py-3.5 px-4 text-right font-mono tabular-nums font-bold text-slate-900">
+                    <td className="py-3 px-4 text-right font-mono tabular-nums font-semibold text-slate-900">
                       {topic.estimatedHours.toFixed(2)}h
                     </td>
-                    <td className="py-3.5 px-4 text-right font-mono tabular-nums font-bold text-indigo-600">
+                    <td className="py-3 px-4 text-right font-mono tabular-nums font-bold text-slate-900">
                       {topic.priority.toFixed(2)}
                     </td>
-                    <td className="py-3.5 px-4 text-right">
-                      <div className="flex items-center justify-end gap-1 opacity-80 group-hover:opacity-100 transition-opacity">
+                    <td className="py-3 px-4 text-right">
+                      <div className="flex items-center justify-end gap-1 opacity-70 group-hover:opacity-100 transition-opacity">
                         <button
                           onClick={() => onEditTopic(topic)}
                           title="แก้ไข"
-                          className="p-1 hover:bg-slate-200 rounded text-slate-600 cursor-pointer"
+                          className="p-1 hover:bg-slate-100 rounded text-slate-500 hover:text-slate-800 cursor-pointer"
                         >
                           <Edit2 className="w-3.5 h-3.5" />
                         </button>
                         <button
                           onClick={() => onDuplicateTopic(topic)}
                           title="ทำสำเนา"
-                          className="p-1 hover:bg-slate-200 rounded text-slate-600 cursor-pointer"
+                          className="p-1 hover:bg-slate-100 rounded text-slate-500 hover:text-slate-800 cursor-pointer"
                         >
                           <Copy className="w-3.5 h-3.5" />
                         </button>
                         <button
                           onClick={() => onDeleteTopic(topic.id)}
                           title="ลบ"
-                          className="p-1 hover:bg-red-100 rounded text-slate-600 hover:text-red-600 cursor-pointer"
+                          className="p-1 hover:bg-red-50 rounded text-slate-400 hover:text-red-600 cursor-pointer"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -258,18 +244,19 @@ export const TopicsSetupView: React.FC<TopicsSetupViewProps> = ({
       <div className="flex items-center justify-between pt-4">
         <button
           onClick={onBack}
-          className="px-4 py-2.5 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg transition-colors flex items-center gap-2 cursor-pointer shadow-xs"
+          className="px-4 py-2 text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors flex items-center gap-1.5 cursor-pointer"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-3.5 h-3.5" />
           <span>{t.backToTargetBtn}</span>
         </button>
 
         <button
           onClick={onNext}
-          className="px-6 py-2.5 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors flex items-center gap-2 cursor-pointer shadow-xs"
+          disabled={topics.length === 0}
+          className="px-5 py-2.5 text-xs font-medium text-white bg-slate-900 hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed rounded-lg transition-colors flex items-center gap-2 cursor-pointer shadow-xs"
         >
           <span>{t.generateScheduleBtn}</span>
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-3.5 h-3.5" />
         </button>
       </div>
     </div>
